@@ -19,7 +19,7 @@
 
 # define MAX_LONG_LONG	9223372036854775807
 # define ENDL			'\n'
-# define BUFF_SIZE		8
+# define BUFF_SIZE		1
 
 void				ft_bzero(void *s, size_t n);
 void				*ft_memset(void *str, int nb, size_t size);

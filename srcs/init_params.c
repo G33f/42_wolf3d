@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_params.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/05 20:30:47 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/03/05 20:30:55 by wpoudre          ###   ########.fr       */
+/*   Created: 2020/03/08 14:17:06 by wpoudre           #+#    #+#             */
+/*   Updated: 2020/03/08 14:17:08 by wpoudre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/wolf3d.h"
 
-int main(int argc, char **argv)
+void	init_params(t_data *p)
 {
-	t_data	p;
-
-	if (argc != 2)
-		error(-10);
-	map_reader(argv[1], &p);
-	init_params(&p);
-	drow(c)
-	return (0);
+	init_mlx(p);
 }

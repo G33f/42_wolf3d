@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   drow.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/05 20:30:47 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/03/05 20:30:55 by wpoudre          ###   ########.fr       */
+/*   Created: 2020/03/08 15:28:01 by wpoudre           #+#    #+#             */
+/*   Updated: 2020/03/08 15:28:04 by wpoudre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/wolf3d.h"
+#include "../header/wolf3d"
 
-int main(int argc, char **argv)
+void	dorw(t_data *p)
 {
-	t_data	p;
 
-	if (argc != 2)
-		error(-10);
-	map_reader(argv[1], &p);
-	init_params(&p);
-	drow(c)
-	return (0);
 }

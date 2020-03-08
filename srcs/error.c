@@ -40,5 +40,4 @@ void	error(int cod)
 		error_log(1);
 	else if (cod == -13)
 		error_log(2);
-
 }
