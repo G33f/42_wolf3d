@@ -38,7 +38,7 @@ void	casting(t_data *p, float angel, int i)
 	{
 		cx = p->ply.x + t * cos(angel);
 		cy = p->ply.y + t * sin(angel);
-		if (p->map.map[(int)cx)][(int)cy] != '0')
+		if (p->map.map[(int)cx][(int)cy] != '0')
 		{
 			column_h = p->mlx.win_y_size/t;
 			draw(p, i, column_h);
@@ -53,9 +53,10 @@ void	render(t_data *p)
 	int	i;
 
 	i = 0;
-	for (i++ < p->mlx.win_x_size/2)
+	while (i < p->mlx.win_x_size/2)
 	{
 		angle = p->ply.a - p->ply.fov / 2 + p->ply.fov * i / (float)(p->mlx.win_x_size /2);
-		cast(p, angle, i);
+		casting(p, angle, i);
+		i++;
 	}
 }
