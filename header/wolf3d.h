@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 11:53:47 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/03/06 11:53:50 by wpoudre          ###   ########.fr       */
+/*   Updated: 2020/06/10 14:55:55 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ void			error_log(int cod);
 ////render----------------------------------------
 void			render(t_data *p);
 void			casting(t_data *p, float angel, int i);
-void			draw(t_data *p, int i, size_t column_h);
+void			draw(t_data *p, int i, int column_h);
 
 #endif
