@@ -23,6 +23,7 @@ void	draw(t_data *p, int i, size_t column_h)
 	{
 		p->mlx.img_data[i + (r + space) * p->mlx.win_x_size] = 0xFFFFFF;
 		p->mlx.img_data[i + 1 + (r + space) * p->mlx.win_x_size] = 0xFFFFFF;
+		ft_putstr("1.2 - all right\n");
 	}
 }
 
@@ -42,6 +43,7 @@ void	casting(t_data *p, float angel, int i)
 		{
 			column_h = p->mlx.win_y_size/t;
 			draw(p, i, column_h);
+			ft_putstr("1.2 - all right\n");
 		}
 		t += 0.05;
 	}
@@ -57,6 +59,7 @@ void	render(t_data *p)
 	{
 		angle = p->ply.a - p->ply.fov / 2 + p->ply.fov * i / (float)(p->mlx.win_x_size /2);
 		casting(p, angle, i);
+		ft_putstr("1.1 - all right\n");
 		i++;
 	}
 }

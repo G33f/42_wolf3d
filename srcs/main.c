@@ -20,8 +20,10 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		error(-10);
 	map_reader(argv[1], &p);
+	ft_putstr("1 - all right\n");
 	init_params(&p);
 	render(&p);
+	ft_putstr("2 - all right\n");
 	mlx_put_image_to_window(p.mlx.mlx, p.mlx.win, p.mlx.img, 0, 0);
 	mlx_loop(p.mlx.mlx);
 	return (0);
