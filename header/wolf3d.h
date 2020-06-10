@@ -74,7 +74,7 @@ void			error_log(int cod);
 
 ////render----------------------------------------
 void	render(t_data *p);
-void	cast(t_data *p, float angel);
-void	draw(t_data *p, size_t i, size_t column_h);
+void	casting(t_data *p, float angel, int i);
+void	draw(t_data *p, int i, size_t column_h);
 
 #endif

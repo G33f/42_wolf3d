@@ -12,7 +12,7 @@
 
 #include "../header/wolf3d.h"
 
-void	draw(t_data *p, size_t i, size_t column_h)
+void	draw(t_data *p, int i, size_t column_h)
 {
 	int	space;
 	int r;
@@ -26,7 +26,7 @@ void	draw(t_data *p, size_t i, size_t column_h)
 	}
 }
 
-void	cast(t_data *p, float angel, size_t i)
+void	casting(t_data *p, float angel, int i)
 {
 	float	t;
 	float	cx;
@@ -38,7 +38,7 @@ void	cast(t_data *p, float angel, size_t i)
 	{
 		cx = p->ply.x + t * cos(angel);
 		cy = p->ply.y + t * sin(angel);
-		if (p->map.map[int(cx)][int(cy)] != '0')
+		if (p->map.map[(int)cx)][(int)cy] != '0')
 		{
 			column_h = p->mlx.win_y_size/t;
 			draw(p, i, column_h);
@@ -50,12 +50,12 @@ void	cast(t_data *p, float angel, size_t i)
 void	render(t_data *p)
 {
 	float	angle;
-	size_t	i;
+	int	i;
 
 	i = 0;
 	for (i++ < p->mlx.win_x_size/2)
 	{
-		angle = p->ply.a - p->ply.fov / 2 + p->ply.fov * i / float(p->mlx.win_x_size /2);
+		angle = p->ply.a - p->ply.fov / 2 + p->ply.fov * i / (float)(p->mlx.win_x_size /2);
 		cast(p, angle, i);
 	}
 }
