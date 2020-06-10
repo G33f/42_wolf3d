@@ -12,6 +12,16 @@
 
 #include "wolf3d.h"
 
+void	img_rebild(t_data *p)
+{
+	mlx_destroy_image(p->mlx.mlx, p->mlx.img);
+	if(!(p->mlx.img = mlx_new_image(p->mlx.mlx, p->mlx.win_x_size, p->mlx.win_y_size)))
+		error(-13);
+	if(!(p->mlx.img_data = (int *)mlx_get_data_addr(p->mlx.img, &p->mlx.bit_per_pixel, &p->mlx.size_line
+			, &p->mlx.endline)))
+		error(-13);
+}
+
 void	init_mlx_params(t_data *p)
 {
 	p->mlx.win_x_size = 1024;
