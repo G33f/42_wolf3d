@@ -14,8 +14,11 @@
 
 #define WOLF3D_H
 
+#define ME_PE = 3.14159;
+
 #include "libft.h"
-#include "../minilibx/mlx.h"
+#include "mlx.h"
+#include <math.h>
 
 typedef struct	s_mlx
 {
@@ -37,15 +40,25 @@ typedef struct	s_map
 	int			y_size;
 }				t_map;
 
+typedef struct	s_player
+{
+	float		x;
+	float		y;
+	float		a;
+	float		fov;
+}				t_player;
+
 typedef struct	s_data
 {
 	t_map		map;
+	t_player	ply;
 	t_mlx		mlx;
 }				t_data;
 
 ////init_params-----------------------------------
 void			init_params(t_data *p);
 void			init_mlx_params(t_data *p);
+void			init_player(t_data *p);
 
 ////mlx_init--------------------------------------
 void			init_mlx(t_data *p);
@@ -58,5 +71,10 @@ int				y_size(char *set, t_data *p);
 void			usage(int cod);
 void			error(int cod);
 void			error_log(int cod);
+
+////render----------------------------------------
+void	render(t_data *p);
+void	cast(t_data *p, float angel);
+void	draw(t_data *p, size_t i, size_t column_h);
 
 #endif

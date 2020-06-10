@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/wolf3d.h"
+#include "wolf3d.h"
 
 void	init_mlx_params(t_data *p)
 {
-	p->mlx.win_x_size = 1920;
-	p->mlx.win_y_size = 1024;
+	p->mlx.win_x_size = 1024;
+	p->mlx.win_y_size = 720;
 }
 
 void	init_mlx(t_data *p)
@@ -30,6 +30,5 @@ void	init_mlx(t_data *p)
 	if(!(p->mlx.img_data = (int *)mlx_get_data_addr(p->mlx.img, &p->mlx.bit_per_pixel, &p->mlx.size_line
 	, &p->mlx.endline)))
 		error(-13);
-
 }
 

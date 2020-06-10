@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/wolf3d.h"
+#include "wolf3d.h"
 
 int		y_size(char *set, t_data *p)
 {
