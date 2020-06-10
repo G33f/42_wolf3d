@@ -73,8 +73,8 @@ void			error(int cod);
 void			error_log(int cod);
 
 ////render----------------------------------------
-void	render(t_data *p);
-void	casting(t_data *p, float angel, int i);
-void	draw(t_data *p, int i, size_t column_h);
+void			render(t_data *p);
+void			casting(t_data *p, float angel, int i);
+void			draw(t_data *p, int i, size_t column_h);
 
 #endif

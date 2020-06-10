@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 		error(-10);
 	map_reader(argv[1], &p);
 	init_params(&p);
-	drow(c);
+	render(&p);
 	mlx_put_image_to_window(p.mlx.mlx, p.mlx.win, p.mlx.img, 0, 0);
 	mlx_loop(p.mlx.mlx);
 	return (0);
