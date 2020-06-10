@@ -14,7 +14,7 @@
 
 #define WOLF3D_H
 
-#define ME_PE = 3.14159;
+#define ME_PE	3.14159;
 
 #include "libft.h"
 #include "mlx.h"
