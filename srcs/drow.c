@@ -18,8 +18,8 @@ void	draw(t_data *p, int i, size_t column_h)
 	int r;
 
 	r = 0;
-	space = p->mlx.win_y_size - column_h;
-	while(r < (int)column_h || r < p->mlx.win_y_size)
+	space = (p->mlx.win_y_size - column_h) / 2;
+	while(r < (int)column_h || r + 1 < p->mlx.win_y_size)
 	{
 		p->mlx.img_data[i + (r + space) * p->mlx.win_x_size] = 0xFFFFFF;
 //		p->mlx.img_data[i + 1 + (r + space) * p->mlx.win_x_size] = 0xFFFFFF;

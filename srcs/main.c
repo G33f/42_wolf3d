@@ -13,6 +13,18 @@
 #include "wolf3d.h"
 #include "../minilibx/mlx.h"
 
+int	kay_prass(int kay, t_data *p)
+{
+	if (kay == 123)
+		p->ply.a += 0.30;
+	if (kay == 124)
+		p->ply.a -= 0.30;
+	mlx_clear_window(p->mlx.mlx, p->mlx.win);
+	render(&p);
+	mlx_put_image_to_window(p.mlx.mlx, p.mlx.win, p.mlx.img, 0, 0);
+	return (kay);
+}
+
 int main(int argc, char **argv)
 {
 	t_data	p;
@@ -24,6 +36,7 @@ int main(int argc, char **argv)
 	init_params(&p);
 	render(&p);
 	ft_putstr("2 - all right\n");
+	mlx_hook(data->wind->win, 2, 0, kay_prass, &p);
 	mlx_put_image_to_window(p.mlx.mlx, p.mlx.win, p.mlx.img, 0, 0);
 	mlx_loop(p.mlx.mlx);
 	return (0);
