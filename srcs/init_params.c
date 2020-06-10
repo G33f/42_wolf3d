@@ -14,9 +14,9 @@
 
 void	init_player(t_data *p)
 {
-	p->ply.x = 1.0;
-	p->ply.y = 1.0;
-	p->ply.a = 0.0;
+	p->ply.x = 2.0;
+	p->ply.y = 4.0;
+	p->ply.a = 1.34;
 	p->ply.fov = 3.14159/3;
 }
 
