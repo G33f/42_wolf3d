@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 15:28:01 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/03/08 15:28:04 by wpoudre          ###   ########.fr       */
+/*   Updated: 2020/06/10 14:59:52 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	draw(t_data *p, int i, int column_h)
 
 	r = 0;
 	space = (p->mlx.win_y_size - column_h) / 2;
-	while(r < (int)column_h || (r + 1 + space) < p->mlx.win_y_size)
+	while(r < column_h && (r + 1 + space) < p->mlx.win_y_size)
 	{
 		p->mlx.img_data[i*2 + (r + space) * p->mlx.win_x_size] = 0xFFFFFF;
 		p->mlx.img_data[i*2 + 1 + (r + space) * p->mlx.win_x_size] = 0xFFFFFF;
@@ -32,7 +32,7 @@ void	casting(t_data *p, float angel, int i)
 	float	t;
 	float	cx;
 	float	cy;
-	int	column_h;
+	int		column_h;
 
 	t = 0;
 	while(t < 20.0)

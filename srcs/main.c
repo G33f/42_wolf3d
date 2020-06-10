@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 20:30:47 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/03/05 20:30:55 by wpoudre          ###   ########.fr       */
+/*   Updated: 2020/06/10 14:51:48 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	kay_prass(int kay, t_data *p)
 	img_rebild(p)
 	render(p);
 	mlx_put_image_to_window(p->mlx.mlx, p->mlx.win, p->mlx.img, 0, 0);
-
 	return (kay);
 }
 
