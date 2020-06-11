@@ -209,6 +209,7 @@ int create_window(t_game *game)
 	if (!game->rnd)
 	{
 		ft_putendl("render  doesn't create");
+		ft_putendl(SDL_GetError());
 		return (SDL_ERR);
 	}
 	game->texture = SDL_CreateTexture(game->rnd,
