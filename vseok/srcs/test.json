@@ -1,0 +1,34 @@
+[
+    {
+    "num":0,
+    "name":"string",
+    "mass": [
+      {
+        "aa": "string",
+        "bb": 0,
+        "cc": [1,2,3,]
+      },
+      {
+        "aa": "string",
+        "bb": 0,
+        "cc": [1,2,3,]
+      }
+    ]
+  },
+  {
+  "num":0,
+  "name":"string",
+  "mass": [
+    {
+      "aa": "string",
+      "bb": 0,
+      "cc": [1,2,3,]
+    },
+    {
+      "aa": "string",
+      "bb": 0,
+      "cc": [1, 2, 3,]
+    }
+  ]
+}
+]
