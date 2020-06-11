@@ -59,14 +59,14 @@ FULL_OBJS = $(addprefix $(OBJDIR)/, $(OBJS))
 FRAMEWORK = -framework OpenGL -framework Cocoa
 #  -framework iconv
 
-LIBFLAGS = -L$(LIBDIR) -lft -L$(SDL) -lSDL2
+LIBFLAGS = -lm -L$(LIBDIR) -lft -L$(SDL) -lSDL2
 # -L $(LIBSDIR)$(LIBUIDIR) -l$(LIBUI)
 # -L $(SDLIMGDIR) -lSDL2_image
 
 # vpath %.c $(SRCDIR)/
 # vpath %.o $(OBJDIR)/
 
-.PHONY:  all re clean fclean
+.PHONY: all re clean fclean
 
 all: $(NAME)
 
@@ -76,7 +76,7 @@ $(OBJDIR):
 libs:
 	make -C $(LIBDIR)
 
-$(OBJDIR)%.o: $(SRCDIR)%.c $(INCDIR1)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(INCDIR1)
 	@echo "test" $@ "" $(<) ""
 	$(CC) $(CCFLAGS) -c -o $@ $<
 
@@ -84,8 +84,11 @@ $(SDL):
 	cd $(PATH_SDL)/SDL2; ./configure --prefix=$(PATH_SDL); make;
 	make -sC $(PATH_SDL)/SDL2 install
 
-$(NAME):libs $(SDL) $(OBJDIR) $(FULL_OBJS)
-	@echo test1
+$(LIBDIR):
+	make -sC $(LIBDIR)
+
+$(NAME):libs $(OBJDIR) $(SDL) $(LIBDIR) $(FULL_OBJS)
+	@echo $(CC) $(CCFLAGS) -o $(NAME) $(FULL_OBJS) $(LIBFLAGS)
 	$(CC) $(CCFLAGS) -o $(NAME) $(FULL_OBJS) $(LIBFLAGS)
 
 clean:

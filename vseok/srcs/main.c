@@ -115,6 +115,7 @@ int render_level(t_game *game)
 	render(game, &pixels);
 	SDL_UnlockTexture(game->texture);
 	SDL_RenderCopy(game->rnd, game->texture, NULL, game->rect);
+	return (NO_ERR);
 }
 
 void render_rect(t_game *game, char type, int x, int y)
@@ -199,17 +200,26 @@ int create_window(t_game *game)
 								 WIN_POS_X, WIN_POS_Y, WIN_SIZE_W, WIN_SIZE_H,
 								 SDL_WINDOW_RESIZABLE);
 	if (!game->wnd)
+	{
+		ft_putendl("wnd doesn't create");
 		return (SDL_ERR);
+	}
 	game->rnd = SDL_CreateRenderer(game->wnd, 0, SDL_RENDERER_ACCELERATED |
 												 SDL_RENDERER_PRESENTVSYNC);
 	if (!game->rnd)
+	{
+		ft_putendl("render  doesn't create");
 		return (SDL_ERR);
+	}
 	game->texture = SDL_CreateTexture(game->rnd,
 									  SDL_PIXELFORMAT_RGBA8888,
 									  SDL_TEXTUREACCESS_STREAMING, WIN_SIZE_W,
 									  WIN_SIZE_H);
 	if (!game->texture)
+	{
+		ft_putendl("texture doesn't create");
 		return (SDL_ERR);
+	}
 	SDL_SetRelativeMouseMode(1);
 	return (NO_ERR);
 }
