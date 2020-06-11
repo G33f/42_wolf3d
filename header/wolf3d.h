@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 11:53:47 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/06/10 14:55:55 by student          ###   ########.fr       */
+/*   Updated: 2020/06/11 23:13:02 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ typedef struct	s_map
 	int			y_size;
 }				t_map;
 
-typedef struct	s_ray;
+/*typedef struct	s_ray;
 {
 	float		cx;
 	float		cy;
 	float		deltaX;
 	float		deltaY;
 }				ray;
-
+*/
 typedef struct	s_player
 {
 	float		x;
@@ -81,9 +81,10 @@ void			error(int cod);
 void			error_log(int cod);
 
 ////render----------------------------------------
-void			render(t_data *p);
-void			casting(t_data *p, float angel, int i);
+//void			render(t_data *p);
+//void			casting(t_data *p, float angel, int i);
 void			draw(t_data *p, int i, int column_h);
 void			img_rebild(t_data *p);
+void			map_render(t_data *p);
 
 #endif

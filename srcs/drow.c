@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 15:28:01 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/06/10 14:59:52 by student          ###   ########.fr       */
+/*   Updated: 2020/06/12 00:11:59 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	draw(t_data *p, int i, int column_h)
 		r++;
 	}
 }
-
+/*
 void	casting(t_data *p, float angel, int i)
 {
-/*	float	t;
+	float	t;
 	ray		r;
 	float	cameraX;
 	int		column_h;
@@ -42,7 +42,7 @@ void	casting(t_data *p, float angel, int i)
 	cy = p->ply.y + t * sin(angel);
 	if (p->map.map[(int)cx][(int)cy] != '0')
 		column_h = p->mlx.win_y_size/(t * cos(angel - p->ply.a));
-	draw(p, i, column_h);*/
+	draw(p, i, column_h);
 }
 
 void	render(t_data *p)
@@ -61,7 +61,7 @@ void	render(t_data *p)
 		if (angel < ME_PE)
 	}
 
-/*	float	angle;
+	float	angle;
 	int	i;
 
 	i = 0;
@@ -70,17 +70,19 @@ void	render(t_data *p)
 		angle = p->ply.a - p->ply.fov / 2 + p->ply.fov * i / (float)p->mlx.win_x_size;
 		casting(p, angle, i);
 		i++;
-	}*/
-}
+	}
+}*/
 
 void	map_render(t_data *p)
 {
-	double posX = 22, posY = 12;  //x and y start position
-	double dirX = -1, dirY = 0; //initial direction vector
-	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
+	double posX = p->ply.x, posY = p->ply.y;  //x and y start position
+	double dirX = -0.956304756; 
+	double dirY = -0.292371705; //initial direction vector
+	double planeX = -0.192965325;
+   	double planeY = 0.631161139; //the 2d raycaster version of camera plane
 
-	double time = 0; //time of current frame
-	double oldTime = 0; //time of previous frame
+//	double time = 0; //time of current frame
+//	double oldTime = 0; //time of previous frame
 
 	int x;
 	for(x = 0; x < p->mlx.win_x_size; x++)
@@ -90,16 +92,16 @@ void	map_render(t_data *p)
 		double rayDirX = dirX + planeX * cameraX;
 		double rayDirY = dirY + planeY * cameraX;
 		//which box of the map we're in
-		int mapX = int(posX);
-		int mapY = int(posY);
+		int mapX = (int)posX;
+		int mapY = (int)posY;
 
 		//length of ray from current position to next x or y-side
 		double sideDistX;
 		double sideDistY;
 
 		//length of ray from one x or y-side to next x or y-side
-		double deltaDistX = abs(1 / rayDirX);
-		double deltaDistY = abs(1 / rayDirY);
+		double deltaDistX = fabs(1 / rayDirX);
+		double deltaDistY = fabs(1 / rayDirY);
 		double perpWallDist;
 
 		//what direction to step in x or y-direction (either +1 or -1)
@@ -153,6 +155,7 @@ void	map_render(t_data *p)
 		else          perpWallDist = (mapY - posY + (1 - stepY) / 2) / rayDirY;
 
 		//Calculate height of line to draw on screen
-		int lineHeight = (int)(h / perpWallDist);
-		draw(p, x, LineHeight);
+		int lineHeight = (int)(p->mlx.win_y_size / perpWallDist);
+		draw(p, x, lineHeight);
+	}
 }
