@@ -204,8 +204,8 @@ int create_window(t_game *game)
 		ft_putendl("wnd doesn't create");
 		return (SDL_ERR);
 	}
-	game->rnd = SDL_CreateRenderer(game->wnd, 0, SDL_RENDERER_ACCELERATED |
-												 SDL_RENDERER_PRESENTVSYNC);
+	game->surface = SDL_GetWindowSurface(game->wnd);
+	game->rnd = SDL_CreateSoftwareRenderer(game->surface);
 	if (!game->rnd)
 	{
 		ft_putendl("render  doesn't create");

@@ -58,6 +58,7 @@ typedef	struct		s_map {
 typedef struct		s_game {
 	SDL_Window		*wnd;
 	SDL_Renderer	*rnd;
+	SDL_Surface		*surface;
 	SDL_Texture		*texture;
 	SDL_Rect		*rect;
 	t_game_state	state;
