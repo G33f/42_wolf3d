@@ -41,7 +41,7 @@ void	casting(t_data *p, float angel, int i)
 		cy = p->ply.y + t * sin(angel);
 		if (p->map.map[(int)cx][(int)cy] != '0')
 		{
-			column_h = p->mlx.win_y_size/t;
+			column_h = p->mlx.win_y_size/(t * cos(angel - p->ply.a));
 			draw(p, i, column_h);
 			return;
 		}
