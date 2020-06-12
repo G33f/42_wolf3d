@@ -12,12 +12,35 @@
 
 #include "wolf3d.h"
 
+void	rot(int i, t_data *p)
+{
+	double oldDirX;
+	double oldPlane;
+
+	oldDirX = p->ply.dirX;
+	oldPlaneX = p->ply.planeX;
+	if (i > 0)
+	{
+		p->ply.dirX = p->ply.dirX * cos(-p->ply.rotSpeed) - p->ply.dirY * sin(-p->ply.rotSpeed);
+		p->ply.dirY = oldDirX * sin(-p->ply.rotSpeed) + p->ply.dirY * cos(-p->ply.rotSpeed);
+		p->ply.planeX = p->ply.planeX * cos(-p->ply.rotSpeed) - p->ply.planeY * sin(-p->ply.rotSpeed);
+		p->ply.planeY = oldPlaneX * sin(-p->ply.rotSpeed) + p->ply.planeY * cos(-p->ply.rotSpeed);
+	}
+	else
+	{
+		p->ply.dirX = p->ply.dirX * cos(p->ply.rotSpeed) - p->ply.dirY * sin(p->ply.rotSpeed);
+		p->ply.dirY = oldDirX * sin(p->ply.rotSpeed) + p->ply.dirY * cos(p->ply.rotSpeed);
+		p->ply.planeX = p->ply.planeX * cos(p->ply.rotSpeed) - p->ply.planeY * sin(p->ply.rotSpeed);
+		p->ply.planeY = oldPlaneX * sin(p->ply.rotSpeed) + p->ply.planeY * cos(p->ply.rotSpeed);
+	}
+}
+
 int	kay_prass(int kay, t_data *p)
 {
 	if (kay == 123)
-		p->ply.a += 0.30;
+		rot(1, p);
 	if (kay == 124)
-		p->ply.a -= 0.30;
+		rot(-1, p);
 	mlx_clear_window(p->mlx.mlx, p->mlx.win);
 	img_rebild(p);
 	map_render(p);

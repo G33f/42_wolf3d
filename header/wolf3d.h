@@ -40,20 +40,34 @@ typedef struct	s_map
 	int			y_size;
 }				t_map;
 
-/*typedef struct	s_ray;
+typedef struct	s_ray
 {
-	float		cx;
-	float		cy;
-	float		deltaX;
-	float		deltaY;
-}				ray;
-*/
+	double		cameraX;
+	double		rayDirX;
+	double		rayDirY;
+	double		sideDistX;
+	double		sideDistY;
+	double		deltaDistX;
+	double		deltaDistY;
+	double		perpWallDist;
+	int			mapX;
+	int			mapY;
+	int			stepX;
+	int			stepY;
+	int			hit;
+	int			side;
+}				t_ray;
+
 typedef struct	s_player
 {
-	float		x;
-	float		y;
-	float		a;
-	float		fov;
+	double		x;
+	double		y;
+	double		dirX;
+	double		dirY;
+	double		planeX;
+	double		planeY;
+	double		moveSpeed;
+	double		rotSpeed;
 }				t_player;
 
 typedef struct	s_data
@@ -81,10 +95,12 @@ void			error(int cod);
 void			error_log(int cod);
 
 ////render----------------------------------------
-//void			render(t_data *p);
-//void			casting(t_data *p, float angel, int i);
 void			draw(t_data *p, int i, int column_h);
-void			img_rebild(t_data *p);
+void			render_init(t_data *p, t_ray *ray, int x);
+void			step_check(t_data *p, t_ray *ray);
+void			casting(t_data *p, t_ray *ray);
 void			map_render(t_data *p);
+void			img_rebild(t_data *p);
+
 
 #endif

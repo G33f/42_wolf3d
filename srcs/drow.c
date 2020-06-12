@@ -14,8 +14,8 @@
 
 void	draw(t_data *p, int i, int column_h)
 {
-	int	space;
-	int r;
+	int		space;
+	int		r;
 
 	r = 0;
 	space = (p->mlx.win_y_size - column_h) / 2;
@@ -25,137 +25,84 @@ void	draw(t_data *p, int i, int column_h)
 		r++;
 	}
 }
-/*
-void	casting(t_data *p, float angel, int i)
-{
-	float	t;
-	ray		r;
-	float	cameraX;
-	int		column_h;
 
-	t = 0;
-	while(t++ < p->mlx.win_x_size)
-	{
-		cameraX =
-	}
-	cx = p->ply.x + t * cos(angel);
-	cy = p->ply.y + t * sin(angel);
-	if (p->map.map[(int)cx][(int)cy] != '0')
-		column_h = p->mlx.win_y_size/(t * cos(angel - p->ply.a));
-	draw(p, i, column_h);
+void	render_init(t_data *p, t_ray *ray, int x)
+{
+	ray->cameraX = 2 * x / (double)p->mlx.win_x_size - 1;
+	ray->rayDirX = p->ply.dirX + p->ply.planeX * ray->cameraX;
+	ray->rayDirY = p->ply.dirY + p->ply.planeY * ray->cameraX;
+	ray->mapX = (int)p->ply.x;
+	ray->mapY = (int)p->ply.y;
+	ray->sideDistX = 0.0;
+	ray->sideDistY = 0.0;
+	ray->deltaDistX = fabs(1 / ray->rayDirX);
+	ray->deltaDistY = fabs(1 / ray->rayDirY);
+	ray->perpWallDist = 0.0;
+	ray->hit = 0;
+	ray->side = 0;
 }
 
-void	render(t_data *p)
+void	step_check(t_data *p, t_ray *ray)
 {
-	int r;
-	int dof;
-	float aTan;
-	float angel;
-
-	r = 0;
-	angel = p->ply.a;
-	while(r++ < 1)
+	if(rayDirX < 0)
 	{
-		dof = 0;
-		aTan = -1/tan(angel);
-		if (angel < ME_PE)
+		ray->stepX = -1;
+		ray->sideDistX = (p->ply.x - ray->mapX) * ray->deltaDistX;
 	}
-
-	float	angle;
-	int	i;
-
-	i = 0;
-	while (i++ < p->mlx.win_x_size)
+	else
 	{
-		angle = p->ply.a - p->ply.fov / 2 + p->ply.fov * i / (float)p->mlx.win_x_size;
-		casting(p, angle, i);
-		i++;
+		ray->stepX = 1;
+		ray->sideDistX = (ray->mapX + 1.0 - p->ply.x) * ray->deltaDistX;
 	}
-}*/
+	if(ray->rayDirY < 0)
+	{
+		ray->stepY = -1;
+		ray->sideDistY = (p->ply.y - ray->mapY) * ray->deltaDistY;
+	}
+	else
+	{
+		ray->stepY = 1;
+		ray->sideDistY = (ray->mapY + 1.0 - p->ply.y) * ray->deltaDistY;
+	}
+}
+
+void	casting(t_data *p, t_ray *ray)
+{
+	while (ray->hit == 0)
+	{
+		if(ray->sideDistX < ray->sideDistY)
+		{
+			ray->sideDistX += ray->deltaDistX;
+			ray->mapX += ray->stepX;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->sideDistY += ray->deltaDistY;
+			ray->mapY += ray->stepY;
+			ray->side = 1;
+		}
+		if(p->map.map[ray->mapX][ray->mapY] != '0')
+			ray->hit = 1;
+	}
+}
 
 void	map_render(t_data *p)
 {
-	double posX = p->ply.x, posY = p->ply.y;  //x and y start position
-	double dirX = -0.956304756; 
-	double dirY = -0.292371705; //initial direction vector
-	double planeX = -0.192965325;
-   	double planeY = 0.631161139; //the 2d raycaster version of camera plane
+	int		x;
+	t_ray	ray;
+	int		lineHeight;
 
-//	double time = 0; //time of current frame
-//	double oldTime = 0; //time of previous frame
-
-	int x;
 	for(x = 0; x < p->mlx.win_x_size; x++)
 	{
-		//calculate ray position and direction
-		double cameraX = 2 * x / (double)p->mlx.win_x_size - 1; //x-coordinate in camera space
-		double rayDirX = dirX + planeX * cameraX;
-		double rayDirY = dirY + planeY * cameraX;
-		//which box of the map we're in
-		int mapX = (int)posX;
-		int mapY = (int)posY;
-
-		//length of ray from current position to next x or y-side
-		double sideDistX;
-		double sideDistY;
-
-		//length of ray from one x or y-side to next x or y-side
-		double deltaDistX = fabs(1 / rayDirX);
-		double deltaDistY = fabs(1 / rayDirY);
-		double perpWallDist;
-
-		//what direction to step in x or y-direction (either +1 or -1)
-		int stepX;
-		int stepY;
-
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
-		//calculate step and initial sideDist
-		if(rayDirX < 0)
-		{
-			stepX = -1;
-			sideDistX = (posX - mapX) * deltaDistX;
-		}
+		render_init(p, &ray, x);
+		step_check(p, &ray);
+		casting(p, &ray);
+		if(ray.side == 0)
+			ray.perpWallDist = (ray.mapX - p->ply.x + (1 - ray.stepX) / 2) / ray.rayDirX;
 		else
-		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - posX) * deltaDistX;
-		}
-		if(rayDirY < 0)
-		{
-			stepY = -1;
-			sideDistY = (posY - mapY) * deltaDistY;
-		}
-		else
-		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - posY) * deltaDistY;
-		}
-		//perform DDA
-		while (hit == 0)
-		{
-			//jump to next map square, OR in x-direction, OR in y-direction
-			if(sideDistX < sideDistY)
-			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
-			}
-			else
-			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
-			}
-			//Check if ray has hit a wall
-			if(p->map.map[mapX][mapY] != '0') hit = 1;
-		}
-		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-		if(side == 0) perpWallDist = (mapX - posX + (1 - stepX) / 2) / rayDirX;
-		else          perpWallDist = (mapY - posY + (1 - stepY) / 2) / rayDirY;
-
-		//Calculate height of line to draw on screen
-		int lineHeight = (int)(p->mlx.win_y_size / perpWallDist);
+			ray.perpWallDist = (ray.mapY - p->ply.y + (1 - ray.stepY) / 2) / ray.rayDirY;
+		lineHeight = (int)(p->mlx.win_y_size / ray.perpWallDist);
 		draw(p, x, lineHeight);
 	}
 }
