@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 20:30:47 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/06/12 16:44:37 by student          ###   ########.fr       */
+/*   Updated: 2020/06/12 17:20:48 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	rot(int i, t_data *p)
 
 	oldDirX = p->ply.dirX;
 	oldPlaneX = p->ply.planeX;
-	if (i > 0)
+	if (i < 0)
 	{
 		p->ply.dirX = p->ply.dirX * cos(-p->ply.rotSpeed) - p->ply.dirY * sin(-p->ply.rotSpeed);
 		p->ply.dirY = oldDirX * sin(-p->ply.rotSpeed) + p->ply.dirY * cos(-p->ply.rotSpeed);
@@ -39,17 +39,17 @@ void move(int i, t_data *p)
 {
 	if (i > 0)
 	{
-		if(p->map.map[(int)p->ply.posX + p->ply.dirX * p->ply.moveSpeed][(int)p->ply.posY] == '0')
-			p->ply.posX += p->ply.dirX * p->ply.moveSpeed;
-		if(p->map.map[(int)p->ply.posX][(int)p->ply.posY + p->ply.dirY * p->ply.moveSpee)] == '0')
-			p->ply.posY += p->ply.dirY * p->ply.moveSpeed;
+		if(p->map.map[(int)(p->ply.x + p->ply.dirX * p->ply.moveSpeed)][(int)(p->ply.y)] == '0')
+			p->ply.x += p->ply.dirX * p->ply.moveSpeed;
+		if(p->map.map[(int)(p->ply.x)][(int)(p->ply.y + p->ply.dirY * p->ply.moveSpeed)] == '0')
+			p->ply.y += p->ply.dirY * p->ply.moveSpeed;
 	}
 	else
 	{
-		if(p->map.map[(int)p->ply.posX - p->ply.dirX * p->ply.moveSpeed][(int)p->ply.posY] == '0')
-			p->ply.posX -= p->ply.dirX * p->ply.moveSpeed;
-		if(p->map.map[(int)p->ply.posX][(int)p->ply.posY - p->ply.dirY * p->ply.moveSpeed] == '0')
-			p->ply.posY -= p->ply.dirY * p->ply.moveSpeed;
+		if(p->map.map[(int)(p->ply.x - p->ply.dirX * p->ply.moveSpeed)][(int)(p->ply.y)] == '0')
+			p->ply.x -= p->ply.dirX * p->ply.moveSpeed;
+		if(p->map.map[(int)(p->ply.x)][(int)(p->ply.y - p->ply.dirY * p->ply.moveSpeed)] == '0')
+			p->ply.y -= p->ply.dirY * p->ply.moveSpeed;
 	}
 }
 
