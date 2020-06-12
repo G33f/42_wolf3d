@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:17:06 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/03/08 14:17:08 by wpoudre          ###   ########.fr       */
+/*   Updated: 2020/06/12 16:48:10 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init_player(t_data *p)
 	p->ply.planeY = 0.66;
 	p->ply.dirX = -1.0;
 	p->ply.dirY = 0.0;
+	p->ply.rotSpeed = 0.030 * 3;
+	p->ply.moveSpeed = 0.030 * 5;
 }
 
 

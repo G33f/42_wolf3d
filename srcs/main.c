@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 20:30:47 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/06/11 23:16:55 by student          ###   ########.fr       */
+/*   Updated: 2020/06/12 16:44:37 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	rot(int i, t_data *p)
 {
 	double oldDirX;
-	double oldPlane;
+	double oldPlaneX;
 
 	oldDirX = p->ply.dirX;
 	oldPlaneX = p->ply.planeX;

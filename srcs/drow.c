@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 15:28:01 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/06/12 00:11:59 by student          ###   ########.fr       */
+/*   Updated: 2020/06/12 16:41:43 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	render_init(t_data *p, t_ray *ray, int x)
 
 void	step_check(t_data *p, t_ray *ray)
 {
-	if(rayDirX < 0)
+	if(ray->rayDirX < 0)
 	{
 		ray->stepX = -1;
 		ray->sideDistX = (p->ply.x - ray->mapX) * ray->deltaDistX;
