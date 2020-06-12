@@ -35,12 +35,34 @@ void	rot(int i, t_data *p)
 	}
 }
 
+void move(int i, t_data *p)
+{
+	if (i > 0)
+	{
+		if(p->map.map[(int)p->ply.posX + p->ply.dirX * p->ply.moveSpeed][(int)p->ply.posY] == '0')
+			p->ply.posX += p->ply.dirX * p->ply.moveSpeed;
+		if(p->map.map[(int)p->ply.posX][(int)p->ply.posY + p->ply.dirY * p->ply.moveSpee)] == '0')
+			p->ply.posY += p->ply.dirY * p->ply.moveSpeed;
+	}
+	else
+	{
+		if(p->map.map[(int)p->ply.posX - p->ply.dirX * p->ply.moveSpeed][(int)p->ply.posY] == '0')
+			p->ply.posX -= p->ply.dirX * p->ply.moveSpeed;
+		if(p->map.map[(int)p->ply.posX][(int)p->ply.posY - p->ply.dirY * p->ply.moveSpeed] == '0')
+			p->ply.posY -= p->ply.dirY * p->ply.moveSpeed;
+	}
+}
+
 int	kay_prass(int kay, t_data *p)
 {
 	if (kay == 123)
 		rot(1, p);
 	if (kay == 124)
 		rot(-1, p);
+	if (kay == 126)
+		move(1, p);
+	if(kay == 125)
+		move(-1, p);
 	mlx_clear_window(p->mlx.mlx, p->mlx.win);
 	img_rebild(p);
 	map_render(p);
