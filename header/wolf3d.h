@@ -40,6 +40,14 @@ typedef struct	s_map
 	int			y_size;
 }				t_map;
 
+typedef struct	s_ray;
+{
+	float		cx;
+	float		cy;
+	float		deltaX;
+	float		deltaY;
+}				ray;
+
 typedef struct	s_player
 {
 	float		x;
