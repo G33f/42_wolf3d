@@ -23,12 +23,12 @@ void	draw(t_data *p, int i, int column_h, t_ray *ray)
 	r = 0;
 	step = 1.0 * p->tex.h / column_h;
 	space = (p->mlx.win_y_size - column_h) / 2;
-	texPos = (space - h / 2 + column_h / 2) * step;
+	texPos = (space - p->mlx.win_y_size / 2 + column_h / 2) * step;
 	while(r < column_h && (r + 1 + space) < p->mlx.win_y_size)
 	{
 		texY = (int)texPos & (p->tex.h - 1);
 		texPos += step;
-		p->mlx.img_data[i + (r + space) * p->mlx.win_x_size] = p->tex[p->tex.h * texY + ray->tex_x];
+		p->mlx.img_data[i + (r + space) * p->mlx.win_x_size] = p->tex.tex_data[p->tex.h * texY + ray->tex_x];
 		r++;
 	}
 }
@@ -109,7 +109,7 @@ void	map_render(t_data *p)
 			ray.perpWallDist = (ray.mapX - p->ply.x + (1 - ray.stepX) / 2) / ray.rayDirX;
 		else
 			ray.perpWallDist = (ray.mapY - p->ply.y + (1 - ray.stepY) / 2) / ray.rayDirY;
-		if (side == 0)
+		if (ray.side == 0)
 			ray.wall_x = p->ply.y + ray.perpWallDist * ray.rayDirY;
 		else
 			ray.wall_x = p->ply.x + ray.perpWallDist * ray.rayDirX;
