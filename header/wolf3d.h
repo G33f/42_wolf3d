@@ -40,6 +40,14 @@ typedef struct	s_map
 	int			y_size;
 }				t_map;
 
+typedef struct	s_textur
+{
+	void		*tex
+	int			*tex_data;
+	int			w;
+	int			h;
+}				t_textur;
+
 typedef struct	s_ray
 {
 	double		cameraX;
@@ -75,6 +83,7 @@ typedef struct	s_data
 	t_map		map;
 	t_player	ply;
 	t_mlx		mlx;
+	t_textur	tex;
 }				t_data;
 
 ////init_params-----------------------------------

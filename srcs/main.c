@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+#include "../minilibx/mlx.h"
 
 void	rot(int i, t_data *p)
 {
@@ -72,13 +73,15 @@ int	kay_prass(int kay, t_data *p)
 
 int main(int argc, char **argv)
 {
-	t_data	p;
+	t_data		p;
 
 	if (argc != 2)
 		error(-10);
 	map_reader(argv[1], &p);
 	ft_putstr("1 - all right\n");
 	init_params(&p);
+	p.tex.tex = mlx_xpm_file_to_image(p.mlx.mlx, "../textures/brick.xpm", &p.tex.w, &p.tex.h);
+	p.tex.tex_data = (int *)mlx_get_data_addr(p.tex.tex, &p.mlx.bit_per_pixel, &p.mlx.size_line, &p.mlx.endline);
 	map_render(&p);
 	ft_putstr("2 - all right\n");
 	mlx_hook(p.mlx.win , 2, 0, kay_prass, &p);
