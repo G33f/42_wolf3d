@@ -16,13 +16,11 @@ void	draw(t_data *p, int i, int column_h, t_ray *ray)
 {
 	int		space;
 	int		r;
-	double	tx_y;
 	double	step;
 	int		texY;
 	double	texPos;
 
 	r = 0;
-	tx_y;
 	step = 1.0 * p->tex.h / column_h;
 	space = (p->mlx.win_y_size - column_h) / 2;
 	texPos = (space - h / 2 + column_h / 2) * step;
@@ -30,7 +28,7 @@ void	draw(t_data *p, int i, int column_h, t_ray *ray)
 	{
 		texY = (int)texPos & (p->tex.h - 1);
 		texPos += step;
-		p->mlx.img_data[i + (r + space) * p->mlx.win_x_size] = p->tex[texY][ray->tex_x];
+		p->mlx.img_data[i + (r + space) * p->mlx.win_x_size] = p->tex[p->tex.h * texY + ray->tex_x];
 		r++;
 	}
 }
@@ -112,14 +110,14 @@ void	map_render(t_data *p)
 		else
 			ray.perpWallDist = (ray.mapY - p->ply.y + (1 - ray.stepY) / 2) / ray.rayDirY;
 		if (side == 0)
-			ray.wall_x = posY + perpWallDist * rayDirY;
+			ray.wall_x = p->ply.y + ray.perpWallDist * ray.rayDirY;
 		else
-			ray.wall_x = posX + perpWallDist * rayDirX;
+			ray.wall_x = p->ply.x + ray.perpWallDist * ray.rayDirX;
 		ray.wall_x -= floor((ray.wall_x));
 		ray.tex_x = (int)(ray.wall_x * (double)p->tex.w);
-		if(side == 0 && rayDirX > 0)
+		if(ray.side == 0 && ray.rayDirX > 0)
 			ray.tex_x = p->tex.w - ray.tex_x - 1;
-		if(side == 1 && rayDirY < 0)
+		if(ray.side == 1 && ray.rayDirY < 0)
 			ray.tex_x = p->tex.w - ray.tex_x - 1;
 		lineHeight = (int)(p->mlx.win_y_size / ray.perpWallDist);
 		draw(p, x, lineHeight, &ray);
