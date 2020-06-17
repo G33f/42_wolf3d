@@ -97,7 +97,8 @@ typedef struct	s_data
 void			init_params(t_data *p);
 void			init_mlx_params(t_data *p);
 void			init_player(t_data *p);
-
+void			textur_reader(t_data *p);
+t_textur		*get_textur(int i, t_data *p);
 ////mlx_init--------------------------------------
 void			init_mlx(t_data *p);
 
