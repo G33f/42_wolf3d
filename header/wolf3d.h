@@ -42,13 +42,14 @@ typedef struct	s_map
 
 typedef struct	s_textur
 {
-	void		**tex;
-	int			**tex_data;
-	int			*bit_per_pixel;
-	int			*size_line;
-	int			*endline;
-	int			*w;
-	int			*h;
+	void		*tex;
+	int			*tex_data;
+	int			bit_per_pixel;
+	int			size_line;
+	int			endline;
+	int			w;
+	int			h;
+	t_textur	*next;
 }				t_textur;
 
 typedef struct	s_ray

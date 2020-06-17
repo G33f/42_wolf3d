@@ -71,23 +71,25 @@ int	kay_prass(int kay, t_data *p)
 	return (kay);
 }
 
-void	textur_reader(t_textur *tex)
+void	textur_reader(t_data *p)
 {
-	char	**str;
-	int		i;
+	char		**str;
+	int			i;
+	t_textur	*buf;
+	t_textur	t;
 
 	if(!(str = ft_strsplit("../textures/brick.xpm ../textures/grass.xpm "
 				   "../textures/metal.xpm ../textures/stone.xpm ../textures/wood.xpm", ' ')));
 		error(-12);
 	i = 0;
-	while(str[i])
-		i++;
-	tex_mlc(tex, i);
-	i = 0;
+	buf = &p->tex;
 	while(str[i])
 	{
-		tex->tex[i] = mlx_xpm_file_to_image(p.mlx.mlx, str[i], &p.tex.w[i], &p.tex.h[i]);
-		tex->tex_data[i] = (int *)mlx_get_data_addr(p.tex.tex[i], &p.tex.bit_per_pixel[i], &p.tex.size_line[i], &p.tex.endline[i]);
+		t = new_tex();
+		t.tex = mlx_xpm_file_to_image(p.mlx.mlx, str[i], &t.w, &t.h);
+		t.tex_data = (int *)mlx_get_data_addr(t.tex, &t.bit_per_pixel, &t.size_line, &t.endline);
+		buf->next = &t;
+		buf = &t;
 	}
 }
 

@@ -14,13 +14,15 @@
 
 void	draw(t_data *p, int i, int column_h, t_ray *ray)
 {
-	int		space;
-	int		r;
-	double	step;
-	int		texY;
-	double	texPos;
+	int			space;
+	int			r;
+	double		step;
+	int			texY;
+	double		texPos;
+	t_textur	*t;
 
 	r = 0;
+	t = get_textur(ray->tex_nmb - 1, p);
 	step = 1.0 * p->tex.h / column_h;
 	space = (p->mlx.win_y_size - column_h) / 2;
 	texPos = (space - p->mlx.win_y_size / 2 + column_h / 2) * step;
@@ -28,7 +30,7 @@ void	draw(t_data *p, int i, int column_h, t_ray *ray)
 	{
 		texY = (int)texPos & (p->tex.h - 1);
 		texPos += step;
-		p->mlx.img_data[i + (r + space) * p->mlx.win_x_size] = p->tex.tex_data[ray->tex_nmb - 1][p->tex.h * texY + ray->tex_x];
+		p->mlx.img_data[i + (r + space) * p->mlx.win_x_size] = t->tex_data[p->tex.h * texY + ray->tex_x];
 		r++;
 	}
 }
@@ -92,7 +94,7 @@ void	casting(t_data *p, t_ray *ray)
 		if(p->map.map[ray->mapX][ray->mapY] != '0')
 		{
 			ray->hit = 1;
-			ray->tex_nmb = map.map[ray->mapX][ray->mapY];
+			ray->tex_nmb = p->map.map[ray->mapX][ray->mapY];
 		}
 	}
 }

@@ -24,27 +24,33 @@ void	init_player(t_data *p)
 	p->ply.moveSpeed = 0.030 * 5;
 }
 
-void	tex_mlc(t_textur *tex, int i)
+t_textur	*get_textur(int i, t_data *p)
 {
-	if(!(**tex->tex = malloc(sizeof(void *) * i)))
-		error(-12);
-	if(!(**tex->tex_data = malloc(sizeof(int *) * i)))
-		error(-12);
-	if(!(*tex->bit_per_pixel = malloc(sizeof(int) * i)))
-		error(-12);
-	if(!(*tex->size_line = malloc(sizeof(int) * i)))
-		error(-12);
-	if(!(*tex->endline = malloc(sizeof(int) * i)))
-		error(-12);
-	if(!(*tex->w = malloc(sizeof(int) * i)))
-		error(-12);
-	if(!(*tex->h = malloc(sizeof(int) * i)))
-		error(-12);
+	t_textur *t;
+	int r;
+
+	t = &p->tex;
+	r = 0;
+	while (r < i)
+	{
+		t = t->next;
+		r++;
+	}
+	return (t);
+}
+
+t_textur	new_tex()
+{
+	t_textur text;
+
+	text.next = NULL;
+	return (text);
 }
 
 void	init_params(t_data *p)
 {
 	init_mlx(p);
 	init_player(p);
+	p->tex.newt = NULL;
 	textur_reader(&p->tex);
 }
