@@ -22,6 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectId" id="1cxyoMUfnnEGRFe2COEwmHF2lYL" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -29,7 +30,7 @@
     <property name="js.buildTools.gulp.gulp_package_dir" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs.protractor.protractor_package" value="" />
-    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -73,7 +74,7 @@
       <workItem from="1591620132192" duration="1918000" />
       <workItem from="1591776560074" duration="11944000" />
       <workItem from="1591966046736" duration="907000" />
-      <workItem from="1592388593033" duration="10296000" />
+      <workItem from="1592388593033" duration="16635000" />
     </task>
     <servers />
   </component>

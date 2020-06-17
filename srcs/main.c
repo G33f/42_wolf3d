@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-#include "../minilibx/mlx.h"
+#include "../header/libft.h"
 
 void	rot(int i, t_data *p)
 {
@@ -71,6 +71,26 @@ int	kay_prass(int kay, t_data *p)
 	return (kay);
 }
 
+void	textur_reader(t_textur *tex)
+{
+	char	**str;
+	int		i;
+
+	if(!(str = ft_strsplit("../textures/brick.xpm ../textures/grass.xpm "
+				   "../textures/metal.xpm ../textures/stone.xpm ../textures/wood.xpm", ' ')));
+		error(-12);
+	i = 0;
+	while(str[i])
+		i++;
+	tex_mlc(tex, i);
+	i = 0;
+	while(str[i])
+	{
+		tex->tex[i] = mlx_xpm_file_to_image(p.mlx.mlx, str[i], &p.tex.w[i], &p.tex.h[i]);
+		tex->tex_data[i] = (int *)mlx_get_data_addr(p.tex.tex[i], &p.tex.bit_per_pixel[i], &p.tex.size_line[i], &p.tex.endline[i]);
+	}
+}
+
 int main(int argc, char **argv)
 {
 	t_data		p;
@@ -78,12 +98,10 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		error(-10);
 	map_reader(argv[1], &p);
-	ft_putstr("1 - all right\n");
 	init_params(&p);
-	p.tex.tex = mlx_xpm_file_to_image(p.mlx.mlx, "../textures/brick.xpm", &p.tex.w, &p.tex.h);
-	p.tex.tex_data = (int *)mlx_get_data_addr(p.tex.tex, &p.tex.bit_per_pixel, &p.tex.size_line, &p.tex.endline);
+//	p.tex.tex = mlx_xpm_file_to_image(p.mlx.mlx, "../textures/brick.xpm", &p.tex.w, &p.tex.h);
+//	p.tex.tex_data = (int *)mlx_get_data_addr(p.tex.tex, &p.tex.bit_per_pixel, &p.tex.size_line, &p.tex.endline);
 	map_render(&p);
-	ft_putstr("2 - all right\n");
 	mlx_hook(p.mlx.win , 2, 0, kay_prass, &p);
 	mlx_put_image_to_window(p.mlx.mlx, p.mlx.win, p.mlx.img, 0, 0);
 	mlx_loop(p.mlx.mlx);
