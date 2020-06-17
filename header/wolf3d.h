@@ -42,7 +42,7 @@ typedef struct	s_map
 
 typedef struct	s_textur
 {
-	void		*tex
+	void		*tex;
 	int			*tex_data;
 	int			bit_per_pixel;
 	int			size_line;
@@ -61,12 +61,14 @@ typedef struct	s_ray
 	double		deltaDistX;
 	double		deltaDistY;
 	double		perpWallDist;
+	double		wall_x;
 	int			mapX;
 	int			mapY;
 	int			stepX;
 	int			stepY;
 	int			hit;
 	int			side;
+	int			tex_x;
 }				t_ray;
 
 typedef struct	s_player
@@ -107,7 +109,7 @@ void			error(int cod);
 void			error_log(int cod);
 
 ////render----------------------------------------
-void			draw(t_data *p, int i, int column_h);
+void			draw(t_data *p, int i, int column_h, t_ray *ray);
 void			render_init(t_data *p, t_ray *ray, int x);
 void			step_check(t_data *p, t_ray *ray);
 void			casting(t_data *p, t_ray *ray);
