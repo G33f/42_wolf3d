@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 11:53:47 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/06/11 23:13:02 by student          ###   ########.fr       */
+/*   Updated: 2020/06/19 00:06:27 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ typedef struct	s_map
 	int			y_size;
 }				t_map;
 
-typedef struct	s_textur
+typedef struct		s_textur
 {
-	void		*tex;
-	int			*tex_data;
-	int			bit_per_pixel;
-	int			size_line;
-	int			endline;
-	int			w;
-	int			h;
-	t_textur	*next;
-}				t_textur;
+	void			*tex;
+	int				*tex_data;
+	int				bit_per_pixel;
+	int				size_line;
+	int				endline;
+	int				w;
+	int				h;
+	struct s_textur	*next;
+}					t_textur;
 
 typedef struct	s_ray
 {
@@ -90,7 +90,7 @@ typedef struct	s_data
 	t_map		map;
 	t_player	ply;
 	t_mlx		mlx;
-	t_textur	tex;
+	t_list		*tex;
 }				t_data;
 
 ////init_params-----------------------------------
@@ -98,7 +98,7 @@ void			init_params(t_data *p);
 void			init_mlx_params(t_data *p);
 void			init_player(t_data *p);
 void			textur_reader(t_data *p);
-t_textur		*get_textur(int i, t_data *p);
+t_textur		*new_tex();
 ////mlx_init--------------------------------------
 void			init_mlx(t_data *p);
 

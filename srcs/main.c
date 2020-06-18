@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 20:30:47 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/06/12 17:20:48 by student          ###   ########.fr       */
+/*   Updated: 2020/06/19 00:06:48 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,19 @@ void	textur_reader(t_data *p)
 {
 	char		**str;
 	int			i;
-	t_textur	*buf;
-	t_textur	t;
+	t_list		*t;
 
 	if(!(str = ft_strsplit("../textures/brick.xpm ../textures/grass.xpm "
-				   "../textures/metal.xpm ../textures/stone.xpm ../textures/wood.xpm", ' ')));
+				   "../textures/metal.xpm ../textures/stone.xpm ../textures/wood.xpm", ' ')))
 		error(-12);
 	i = 0;
-	buf = &p->tex;
 	while(str[i])
 	{
-		t = new_tex();
-		t.tex = mlx_xpm_file_to_image(p.mlx.mlx, str[i], &t.w, &t.h);
-		t.tex_data = (int *)mlx_get_data_addr(t.tex, &t.bit_per_pixel, &t.size_line, &t.endline);
-		buf->next = &t;
-		buf = &t;
+		t = ft_lstnew(new_tex(), sizeof(t_textur));
+		((t_textur*)t->content)->tex = mlx_xpm_file_to_image(p->mlx.mlx, str[i], &((t_textur*)t->content)->w, &((t_textur*)t->content)->h);
+		((t_textur*)t->content)->tex_data = (int *)mlx_get_data_addr(((t_textur*)t->content)->tex, &((t_textur*)t->content)->bit_per_pixel, &((t_textur*)t->content)->size_line, &((t_textur*)t->content)->endline);
+		ft_lstadd(&p->tex,t);
+		i++;
 	}
 }
 

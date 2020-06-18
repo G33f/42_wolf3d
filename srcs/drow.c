@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 15:28:01 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/06/12 16:41:43 by student          ###   ########.fr       */
+/*   Updated: 2020/06/19 00:33:02 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@ void	draw(t_data *p, int i, int column_h, t_ray *ray)
 	double		step;
 	int			texY;
 	double		texPos;
-	t_textur	*t;
+	t_list	*t;
 
 	r = 0;
-	t = get_textur(ray->tex_nmb - 1, p);
-	step = 1.0 * p->tex.h / column_h;
+	t = ft_lstnelem(p->tex, ray->tex_nmb - 1);
+	step = 1.0 * ((t_textur*)t->content)->h / column_h;
 	space = (p->mlx.win_y_size - column_h) / 2;
 	texPos = (space - p->mlx.win_y_size / 2 + column_h / 2) * step;
 	while(r < column_h && (r + 1 + space) < p->mlx.win_y_size)
 	{
-		texY = (int)texPos & (p->tex.h - 1);
+		texY = (int)texPos & (((t_textur*)t->content)->h - 1);
 		texPos += step;
-		p->mlx.img_data[i + (r + space) * p->mlx.win_x_size] = t->tex_data[p->tex.h * texY + ray->tex_x];
+		p->mlx.img_data[i + (r + space) * p->mlx.win_x_size] = ((t_textur*)t->content)->tex_data[((t_textur*)t->content)->h * texY + ray->tex_x];
 		r++;
 	}
 }
@@ -94,7 +94,7 @@ void	casting(t_data *p, t_ray *ray)
 		if(p->map.map[ray->mapX][ray->mapY] != '0')
 		{
 			ray->hit = 1;
-			ray->tex_nmb = p->map.map[ray->mapX][ray->mapY];
+			ray->tex_nmb = p->map.map[ray->mapX][ray->mapY] - '0';
 		}
 	}
 }
@@ -119,11 +119,11 @@ void	map_render(t_data *p)
 		else
 			ray.wall_x = p->ply.x + ray.perpWallDist * ray.rayDirX;
 		ray.wall_x -= floor((ray.wall_x));
-		ray.tex_x = (int)(ray.wall_x * (double)p->tex.w);
+		ray.tex_x = (int)(ray.wall_x * (double)((t_textur*)p->tex->content)->w);
 		if(ray.side == 0 && ray.rayDirX > 0)
-			ray.tex_x = p->tex.w - ray.tex_x - 1;
+			ray.tex_x = ((t_textur*)p->tex->content)->w - ray.tex_x - 1;
 		if(ray.side == 1 && ray.rayDirY < 0)
-			ray.tex_x = p->tex.w - ray.tex_x - 1;
+			ray.tex_x = ((t_textur*)p->tex->content)->w - ray.tex_x - 1;
 		lineHeight = (int)(p->mlx.win_y_size / ray.perpWallDist);
 		draw(p, x, lineHeight, &ray);
 	}

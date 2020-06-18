@@ -6,7 +6,7 @@
 /*   By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 14:17:06 by wpoudre           #+#    #+#             */
-/*   Updated: 2020/06/19 00:09:39 by student          ###   ########.fr       */
+/*   Updated: 2020/06/18 23:06:47 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,27 @@ void	init_player(t_data *p)
 	p->ply.moveSpeed = 0.030 * 5;
 }
 
-t_textur	*new_tex()
+t_textur	*get_textur(int i, t_data *p)
 {
-	t_textur *text;
+	t_textur *t;
+	int r;
 
-	text = (t_textur*)malloc(sizeof(t_textur));
-	text->next = NULL;
+	t = &p->tex;
+	r = 0;
+	ft_putnbr(i);
+	while (r < i)
+	{		
+		t = t->next;
+		r++;
+	}
+	return (t);
+}
 
+t_textur	new_tex()
+{
+	t_textur text;
+
+	text.next = NULL;
 	return (text);
 }
 
@@ -38,5 +52,6 @@ void	init_params(t_data *p)
 {
 	init_mlx(p);
 	init_player(p);
+	p->tex.next = NULL;
 	textur_reader(p);
 }

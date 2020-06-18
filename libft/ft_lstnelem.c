@@ -17,9 +17,9 @@ void	*ft_lstnelem(t_list *lst, size_t s)
 	size_t r;
 
 	r = 0;
-	while (s > (r - 1))
+	while (s > r)
 	{
-		if (lst->next)
+		if (!lst->next)
 			return (NULL);
 		lst = lst->next;
 		r++;
