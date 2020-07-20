@@ -3,56 +3,129 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wpoudre <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: hgreenfe <hgreenfe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/01/27 10:34:56 by wpoudre           #+#    #+#              #
-#    Updated: 2020/01/27 10:35:01 by wpoudre          ###   ########.fr        #
+#    Created: 2020/02/27 20:18:14 by hgreenfe          #+#    #+#              #
+#    Updated: 2020/06/17 08:45:49 by hgreenfe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= wolf3d
+# used variables
+NAME = wolf3d
 
-SOURSE_DIRS		:= srcs
+SLASH = /
 
-FLAGS			= -Wall -Werror -Wextra
+SRCDIR = srcs
 
-framework		= -L minilibx -lmlx -framework OpenGL -framework AppKit -L libft -lft
+OBJDIR = objs
 
-SEARCH_WILDCARDS:= $(addsuffix /*.c, $(SOURSE_DIRS))
+LIBUIDIR = .
+LIBDIR = ./libs/libft/
 
-OBJECTS			= $(notdir $(patsubst %.c,%.o, $(wildcard $(SEARCH_WILDCARDS))))
-
-LIB_DIR		= ./libft/
-
-LIB_OBJS		= $(addprefix $(LIB_DIR), $(LIB_OBJ))
-
+LIB_OBJS		= $(addprefix $(LIBDIR), $(LIB_OBJ))
 LIB_OBJ			= *.o
+LIB_H			= libft.h
+LIB_INC			= $(addprefix $(LIBDIR), $(LIB_H))
+WOLF_HED		= reader.h \
+				wolf3d.h \
+				libft.h
+WOLF_INC		= $(addprefix $(INCDIR1), $(WOLF_HED))
 
-FDF_INC			= header/wolf3d.h
+INCDIR1 = ./incs/
+INCSDL = ./SDL/include
 
-LIB_INC			= header/libft.h
+# PATH_SDL := $(addsuffix /libs, $(shell pwd))
+
+ifeq ($(OS),Windows_NT)
+	CD := $(shell cd)
+else
+	CD := $(shell pwd)
+endif
+
+PATH_SDL := $(addsuffix /libs/SDL2/SDL2-2.0.12, $(CD))
+SDL :=  $(PATH_SDL)/build/.libs
+
+# used applications
+CC = gcc
+CCFLAGS = -Ofast -Wall -Wextra -Werror -pedantic-errors -g
+AR = ar
+ARFLAGS = -rs
+RM = rm
+RMFLAGS = -rf
+INCFLAGS = -I$(LIBDIR) -I$(INCDIR1) -I$(INCSDL)
+#used files
+FILES := editor \
+	event \
+	fonts \
+	game \
+	game_menu \
+	level \
+	main \
+	map \
+	player \
+	process_game \
+	ray \
+	render \
+	texture \
+	utils \
+	utils2 \
+	map_reader \
+	loops \
+	window
+
+HEADERS = $(INCDIR1)/SDL2/SDL.h
+
+SRCS = $(addsuffix .c, $(FILES))
+OBJS = $(addsuffix .o, $(FILES))
+
+FULL_SRCS = $(addprefix $(SRCDIR)/, $(SRCS))
+FULL_OBJS = $(addprefix $(OBJDIR)/, $(OBJS))
+
+FRAMEWORK = -framework OpenGL -framework Cocoa
+#  -framework iconv
+
+LIBFLAGS = -lm -L$(LIBDIR) -lft -L$(SDL) -lSDL2
+# -L $(LIBSDIR)$(LIBUIDIR) -l$(LIBUI)
+# -L $(SDLIMGDIR) -lSDL2_image
+
+# vpath %.c $(SRCDIR)/
+# vpath %.o $(OBJDIR)/
+
+.PHONY: all re clean fclean
 
 all: $(NAME)
 
-$(NAME): $(LIB_OBJS) $(OBJECTS)
-	gcc $(OBJECTS) -o $@ $(framework)
+$(OBJDIR):
+	mkdir $(OBJDIR)
 
-VPATH := $(SOURSE_DIRS)
+$(LIBDIR)%.o: $(LIBDIR)%.c $(LIB_INC)
+	make -C $(LIBDIR)
 
-$(LIB_DIR)%.o: $(LIB_DIR)%.c $(LIB_INC)
-	make -C $(LIB_DIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(WOLF_INC)
+	@echo "test" $@ "" $(<) ""
+	$(CC) $(CCFLAGS) $(INCFLAGS) -c -o $@ $<
 
-%.o: %.c $(FDF_INC)
-	gcc $(FLAGS) -c $< -I header/
+$(SDL):
+	cd $(PATH_SDL); ./configure --prefix=$(PATH_SDL)/..; make;
+	make -sC $(PATH_SDL) install
+
+$(NAME): $(LIB_OBJS) $(OBJDIR) $(SDL) $(FULL_OBJS)
+	@echo $(CC) $(CCFLAGS) $(INCFLAGS) -o $(NAME) $(FULL_OBJS) $(LIBFLAGS)
+	$(CC) $(CCFLAGS) $(INCFLAGS) -o $(NAME) $(FULL_OBJS) $(LIBFLAGS)
 
 clean:
-	make clean -C libft
-	rm -rf *.o
+	make -C $(LIBDIR) clean
+	$(RM) $(RMFLAGS) $(FULL_OBJS)
 
-fclean: clean
-	make fclean -C libft
-	rm -rf $(NAME)
+clean_sdl:
+	echo $(PATH_SDL)
+	make -C $(PATH_SDL)$(SLASH) clean
+
+fclean: clean clean_sdl
+	make -C $(LIBDIR) fclean
+	$(RM) $(RMFLAGS) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+# test:
+# 	$(CC) $(CCFLAGS) -o test_$(NAME) objs/level.o test.c $(LIBFLAGS)
